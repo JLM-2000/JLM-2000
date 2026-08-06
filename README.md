@@ -75,6 +75,17 @@ run in CI without a WordPress install.
 
 ---
 
+## mountain-guide-app
+
+**Proyecto conjunto con [@jcasasus5](https://github.com/jcasasus5).** Aplicación
+para rutas de montaña, desarrollada entre los dos como contribuyentes.
+
+Repositorio: [jcasasus5/mountain-guide-app](https://github.com/jcasasus5/mountain-guide-app)
+
+<!-- Añade dos líneas sobre qué hace y qué parte llevaste tú. -->
+
+---
+
 ## How I work
 
 - Tests and CI on everything that ships. A red pipeline blocks the deploy.
