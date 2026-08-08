@@ -1,132 +1,63 @@
 # Javier Lucia Marco
 
-Backend and full-stack engineer. I build and run production systems end to end —
-API, workers, database, deployment pipeline and the client that talks to them.
+Backend and full-stack engineer. I build and run production systems end to end — API, workers, database, deployment pipeline, and the client that talks to them.
 
-Most of my repositories are private because they are commercial products in use.
-This page describes what they do, how they are built and what I owned. Happy to
-walk through any of them in detail, or share code under NDA.
+Most of my repositories are private because they are commercial products in use. This page says what they do and what I owned. Happy to walk through any of them, or share code under NDA.
 
-📍 Zaragoza, Spain · j.luciamarco@gmail.com
+📍 Zaragoza, Spain · [j.luciamarco@gmail.com](mailto:j.luciamarco@gmail.com)
 
 ---
+
+| Project | What it is | Stack | |
+|---|---|---|---|
+| **[Lexground](https://github.com/JLM-2000/Lexground)** | Grounded retrieval over EU regulatory law, with the eval harness as a CI build gate | Python · FastAPI · Postgres + pgvector · Next.js · Terraform | public |
+| **iFlySEO** | Multi-tenant SaaS that generates and publishes SEO content for WordPress | FastAPI · Celery · Postgres · PHP 8 | private · live |
+| **[Canon-Quill](https://github.com/JLM-2000/Canon-Quill)** | Agentic book writing grounded in an author's own past prose | TypeScript · MCP · Google Drive API | public |
+| **SeatWise** | Constraint-based seating optimiser under hard and soft constraints | Python · FastAPI · Pydantic 2 | private |
+| **Adventra-Outreach** | Directory scraping and staged outreach for a real campaign | Node.js · SQLite · Cheerio | private |
+
+---
+
+## Lexground — grounded retrieval over EU law
+
+Retrieval over a corpus is the easy half. The half I cared about is knowing whether a change made the answers *worse*, because a degraded RAG system does not throw an exception — it returns a confident wrong answer.
+
+So there is a golden set, seven metrics, thresholds in version control, and a build that goes red when retrieval quality drops or a quoted passage turns out not to be in the article it cites. Hybrid BM25 + dense retrieval with reciprocal rank fusion, one Postgres instance backing both arms.
+
+The result I am most pleased with is a debugging one. Groundedness sat at 0.61 with a huge spread until I read the judge's *rationales* instead of its scores: my harness was filtering context down to the cited chunks and renumbering them from 1, so the answers' citation markers pointed at nothing. The judge was right and my harness was broken. Fixing it took groundedness to 0.967 with zero variance across five runs — and the one case that still fails is a genuine cross-reference trap, which is the evidence the jump came from fixing a bug rather than from a softer prompt.
 
 ## iFlySEO — AI content platform for WordPress
 
-**Live product.** A multi-tenant SaaS that analyses a customer's website, infers
-their service lines, and generates and publishes SEO content on a schedule. Sold
-through a WooCommerce storefront with per-domain word accounting.
+**Live commercial product.** Analyses a customer's website, infers their service lines, and generates and publishes SEO content on a schedule. Sold through a WooCommerce storefront with per-domain word accounting.
 
-**Stack:** Python 3.11 · FastAPI · SQLAlchemy 2 (async) · Alembic · Celery ·
-Redis · PostgreSQL 15 · Docker Compose · GitHub Actions · PHP 8 (WordPress
-plugins) · vanilla JS
+A FastAPI service plus four Celery queues behind Redis, with leased tasks, fenced completion and heartbeats so a dead worker cannot strand a job. Generation runs through a validation layer — hard and soft constraints, candidate scoring, bounded retries — with an auditable record of every paid provider response; measuring the failures instead of guessing at them cut wasted paid retries from 8 per four articles to 2.
 
-**What I built and run:**
+I also wrote the two WordPress plugins in PHP (signed auto-update, an Ed25519-signed kill switch), the HMAC-signed API boundary, and the deploy pipeline: linting, tests, Semgrep, immutable image tags, health-gated deploy with automatic rollback. I run it — VPS, Prometheus and Grafana, tamper-evident audit logging, backups, incidents.
 
-- **Async API and worker fleet.** FastAPI service plus four Celery queues
-  (generation, scraping, publishing, scheduling) behind Redis, with leased
-  tasks, fenced completion and heartbeats so a dead worker cannot strand a job.
-- **Content generation pipeline.** LLM generation with a validation layer —
-  hard and soft constraints, candidate scoring, bounded retries — and an
-  auditable record of every paid provider response. Cut wasted paid retries from
-  8 per four articles to 2 by measuring the failures rather than guessing.
-- **Two WordPress plugins in PHP.** A customer-site plugin (generation,
-  scheduling, publishing, signed auto-update, an Ed25519-signed kill switch) and
-  a Hub plugin that runs the storefront, customer portal and WooCommerce
-  provisioning bridge.
-- **Signed API boundary.** HMAC-SHA256 request signing with timestamp, nonce and
-  body digest; encrypted secret storage; per-key rate limiting and lockout.
-- **Deployment pipeline.** GitHub Actions: format, tests, PHP linting against
-  each plugin's declared version, Semgrep, immutable image tags, health-gated
-  deploy with automatic rollback, semantic versioning derived from commit type,
-  and image cleanup that keeps the VPS disk in check.
-- **Operational ownership.** VPS on Docker Compose with Prometheus and Grafana,
-  tamper-evident audit logging with HMAC-sealed entries, database backups, and
-  incident response.
+~1.9 MB across Python, JavaScript, PHP and shell. 443 backend tests, plus offline rendering tests for the plugins that run in CI without a WordPress install.
 
-~1.9 MB across Python, JavaScript, PHP and shell. 443 backend tests plus offline
-rendering tests for the WordPress plugins that run in CI without a WordPress
-install.
+## Canon-Quill — agentic book writing
 
----
+Getting an LLM to produce text is not the hard part. Getting text that sounds like *the author* wrote it, and where chapter 12 still agrees with chapter 3, is.
+
+Both are handled as measurement problems rather than prompt instructions. The author's past books are cut into passages tagged by narrative beat; the closest precedent for each scene is retrieved into the drafting prompt, so the model writes next to real examples instead of a description of a style. Drafts are then scored against a quantitative fingerprint of the author's own prose — sentence-length distribution, dialogue share, tag habits, filter-verb and abstraction rates — and the editing pass works from the named deviations.
+
+Continuity is a typed contract between chapters rather than a summary document: a character relocating with no travel shown, someone acting on a fact they were never shown learning, or a thread past its resolve-by chapter all fail a gate in code.
 
 ## SeatWise — constraint-based seating optimiser
 
-Assigns guests to tables under real constraints — who must sit together, who
-must be kept apart, table capacities — and returns the best arrangement it can
-find within a time budget, rather than leaving it to trial and error by hand.
+Assigns guests to tables under real constraints — who must sit together, who must be kept apart, table capacities — and returns the best arrangement it can find within a wall-clock budget.
 
-**Stack:** Python 3.10 · FastAPI · Pydantic 2 · SQLAlchemy 2 · Alembic ·
-server-rendered frontend
-
-**How it works:**
-
-- **Weighted scoring.** Every arrangement is scored with a breakdown; hard
-  constraints carry penalties orders of magnitude larger than soft ones, so the
-  optimiser never trades a "must not sit together" for a nicety.
-- **Search.** Bounded hill climbing with random restarts and move/swap
-  mutations across tables, plus a per-table ordering pass, all under a wall-clock
-  deadline so the API always answers in time.
-- **Grouping.** A union-find pass resolves "must sit together" chains into
-  components before placement, with seat-distance fallbacks when a table cannot
-  hold a whole group.
-- Typed REST API with OpenAPI docs, import/export of plans, and database
-  migrations. The solver is deliberately isolated from the API so it can be
-  tested on its own.
-
----
-
-## Canon-Quill — agent workflow for writing books
-
-A conversation-first workflow that takes an author from reference material in
-Google Drive to a finished, validated book exported as DOCX. You talk to an
-orchestrator agent instead of memorising commands; it prepares the book, writes
-each chapter in the chosen style, validates every chapter, builds the final
-document and archives the project.
-
-**Stack:** TypeScript · Model Context Protocol SDK · Google Drive API (OAuth) ·
-docx · Express · Zod · YAML
-
-**How it works:**
-
-- **MCP Drive server.** A Model Context Protocol server bridges Google Drive so
-  the agent reads reference material directly, with its own OAuth client.
-- **Staged pipeline.** prepare → write → validate → export → archive, with a
-  validation gate on every chapter before it can proceed, and a style check
-  driven by a configurable list of AI clichés to avoid.
-- **DOCX generation and a live markdown preview server** so the author sees the
-  book take shape.
-- A setup wizard, structured logging, and Zod schemas throughout.
-
----
+Every arrangement is scored with a breakdown where hard constraints carry penalties orders of magnitude larger than soft ones, so the optimiser never trades a "must not sit together" for a nicety. Bounded hill climbing with random restarts, and a union-find pass that resolves "must sit together" chains into components before placement. The solver is deliberately isolated from the API so it can be tested on its own.
 
 ## Adventra-Outreach — directory scraping and outreach
 
-A local tool that syncs mountain-guide listings from the AEGM directory, tracks
-each contact's state, and prepares personalised email batches — built for a real
-outreach campaign.
-
-**Stack:** Node.js · Express · SQLite · Cheerio · Nodemailer
-
-**How it works:**
-
-- **Paginated scraping** of the AEGM guide directory with on-demand enrichment
-  of individual profiles to pull email and phone where published.
-- **A contact state machine** — pending → contacted → replied → follow-up →
-  do-not-contact — with manual notes, persisted in SQLite.
-- **Safe sending.** Email defaults to a dry run, so a misconfiguration never
-  sends real mail; supports SMTP or a Gmail app password.
+Syncs mountain-guide listings from the AEGM directory, tracks each contact through a state machine (pending → contacted → replied → follow-up → do-not-contact) in SQLite, and prepares personalised email batches. Sending defaults to a dry run, so a misconfiguration cannot send real mail.
 
 ---
 
 ## How I work
 
-- Tests and CI on everything that ships. A red pipeline blocks the deploy.
-- Migrations are reviewed and reversible; production data gets backed up before
-  destructive work.
-- I measure before I optimise, and I report what the numbers actually say.
+Tests and CI on everything that ships; a red pipeline blocks the deploy. Migrations reviewed and reversible, production data backed up before destructive work. I measure before I optimise, and I report what the numbers actually say — including when they say the thing I built did not help.
 
----
-
-*Contribution activity here includes private repositories, so the graph reflects
-real daily work even though the code is not public.*
+<sub>Contribution activity includes private repositories, so the graph reflects real daily work even though most of the code is not public.</sub>
