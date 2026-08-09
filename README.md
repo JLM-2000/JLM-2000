@@ -1,6 +1,8 @@
 # Javier Lucia Marco
 
-Backend and full-stack engineer. I build and run production systems end to end: API, workers, database, deployment pipeline, and the client that talks to them.
+Software engineer focused on backend systems, applied AI, and infrastructure.
+
+I build and run production systems end to end: APIs, workers, data, AI workflows, deployment pipelines, and the applications around them.
 
 Most of my repositories are private because they are commercial products in use. This page says what they do and what I owned. Happy to walk through any of them, or share code under NDA.
 
@@ -8,13 +10,13 @@ Most of my repositories are private because they are commercial products in use.
 
 ---
 
-| Project | What it is | Stack | |
+| Project | What it is | Stack | Status |
 |---|---|---|---|
-| **[Lexground](https://github.com/JLM-2000/Lexground)** | Grounded retrieval over EU regulatory law, with the eval harness as a CI build gate | Python · FastAPI · Postgres + pgvector · Next.js · Terraform | public |
-| **iFlySEO** | Multi-tenant SaaS that generates and publishes SEO content for WordPress | FastAPI · Celery · Postgres · PHP 8 | private · live |
-| **[Canon-Quill](https://github.com/JLM-2000/Canon-Quill)** | Agentic book writing grounded in an author's own past prose | TypeScript · MCP · Google Drive API | public |
-| **SeatWise** | Constraint-based seating optimiser under hard and soft constraints | Python · FastAPI · Pydantic 2 | private |
-| **Adventra-Outreach** | Directory scraping and staged outreach for a real campaign | Node.js · SQLite · Cheerio | private · collaboration |
+| **[Lexground](https://github.com/JLM-2000/Lexground)** | Grounded RAG over EU regulatory law with hybrid lexical + vector retrieval, evaluation and regression gates, and reproducible infrastructure | Python · FastAPI · PostgreSQL · pgvector · Next.js · Terraform | public |
+| **iFlySEO** | Production SaaS for scheduled SEO generation and automated WordPress publishing, with background processing, deployment, observability, and reliability-oriented workflows | FastAPI · Celery · Redis · PostgreSQL · PHP · Prometheus · Grafana | private · live |
+| **[Canon-Quill](https://github.com/JLM-2000/Canon-Quill)** | Agentic book-writing workflows grounded in existing writing, with style and continuity validation over structured state | TypeScript · LLM orchestration · MCP · Google Drive API | public |
+| **Adventra** | Mountain-guide marketplace with geospatial search, bookings, availability, payments, and GPS routes | FastAPI · PostgreSQL · PostGIS · Stripe Connect | private |
+| **SeatWise** | Constraint-based seating optimisation using hard and soft preferences to find the best feasible arrangement within a fixed budget | Python · FastAPI · Pydantic 2 | private |
 
 ---
 
@@ -50,7 +52,9 @@ Assigns guests to tables under real constraints (who must sit together, who must
 
 Every arrangement is scored with a breakdown where hard constraints carry penalties orders of magnitude larger than soft ones, so the optimiser never trades a "must not sit together" for a nicety. Bounded hill climbing with random restarts, and a union-find pass that resolves "must sit together" chains into components before placement. The solver is deliberately isolated from the API so it can be tested on its own.
 
-## Adventra-Outreach, directory scraping and outreach
+## Other work
+
+### Adventra-Outreach, directory scraping and outreach
 
 A two-person project, built for a real outreach campaign. It syncs mountain-guide listings from the AEGM directory, tracks each contact through a state machine (pending, contacted, replied, follow-up, do-not-contact) in SQLite, and prepares personalised email batches.
 
