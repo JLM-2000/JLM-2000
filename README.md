@@ -15,7 +15,7 @@ Most of my repositories are private because they are commercial products in use.
 | **[Lexground](https://github.com/JLM-2000/Lexground)** | Grounded RAG over EU regulatory law with hybrid lexical + vector retrieval, evaluation and regression gates, and reproducible infrastructure | Python · FastAPI · PostgreSQL · pgvector · Next.js · Terraform | public |
 | **iFlySEO** | Production SaaS for scheduled SEO generation and automated WordPress publishing, with background processing, deployment, observability, and reliability-oriented workflows | FastAPI · Celery · Redis · PostgreSQL · PHP · Prometheus · Grafana | private · live |
 | **[Canon-Quill](https://github.com/JLM-2000/Canon-Quill)** | Agentic book-writing workflows grounded in existing writing, with style and continuity validation over structured state | TypeScript · LLM orchestration · MCP · Google Drive API | public |
-| **Arista** | Mountain-guide application built collaboratively with `jcasasus5`, with geospatial search, bookings, availability, payments, and GPS routes | FastAPI · PostgreSQL · PostGIS · Stripe Connect · Next.js | private |
+| **Arista** | Mountain-guide marketplace built collaboratively with `jcasasus5`, connecting clients with verified guides and supporting activities, availability, GPS routes, bookings, and payouts | FastAPI · PostgreSQL · PostGIS · Redis · Arq · Stripe Connect · Next.js · TypeScript | private |
 | **SeatWise** | Constraint-based seating optimisation using hard and soft preferences to find the best feasible arrangement within a fixed budget | Python · FastAPI · Pydantic 2 | private |
 
 ---
@@ -48,9 +48,17 @@ Continuity is a typed contract between chapters rather than a summary document: 
 
 ## Arista, mountain-guide application
 
-Arista is a mountain-guide platform, built collaboratively with
-`jcasasus5`. It brings together mountain-guide and route discovery, bookings,
-availability, payments, and GPS routes in one product.
+Arista is a mountain-guide marketplace built collaboratively with `jcasasus5`.
+The first markets are Spain and the French Pyrenees. Clients can search by zone,
+activity, difficulty, or date, inspect GPS and GPX route information, book
+verified professional guides, and pay through the platform. Guides manage their
+profiles, certifications, activities, recurring availability, bookings, routes,
+messages, and Stripe Connect payouts. The product also includes reviews,
+administration, internationalised frontend routes, and a PWA frontend.
+
+The application is split between an async FastAPI backend and a Next.js
+frontend, with PostgreSQL and PostGIS for the marketplace data and geography,
+Redis and Arq for background work, and Docker-based local infrastructure.
 
 For a real guide outreach campaign around Arista, I built a separate outreach
 application and its code rather than adding campaign logic to the main product.
