@@ -15,7 +15,7 @@ Most of my repositories are private because they are commercial products in use.
 | **[Lexground](https://github.com/JLM-2000/Lexground)** | Grounded RAG over EU regulatory law with hybrid lexical + vector retrieval, evaluation and regression gates, and reproducible infrastructure | Python · FastAPI · PostgreSQL · pgvector · Next.js · Terraform | public |
 | **iFlySEO** | Production SaaS for scheduled SEO generation and automated WordPress publishing, with background processing, deployment, observability, and reliability-oriented workflows | FastAPI · Celery · Redis · PostgreSQL · PHP · Prometheus · Grafana | private · live |
 | **[Canon-Quill](https://github.com/JLM-2000/Canon-Quill)** | Agentic book-writing workflows grounded in existing writing, with style and continuity validation over structured state | TypeScript · LLM orchestration · MCP · Google Drive API | public |
-| **Adventra** | Mountain-guide marketplace with geospatial search, bookings, availability, payments, and GPS routes | FastAPI · PostgreSQL · PostGIS · Stripe Connect | private |
+| **[Arista](https://github.com/jcasasus5/mountain-guide-app)** | Mountain-guide application owned by `jcasasus5` and built collaboratively, with geospatial search, bookings, availability, payments, and GPS routes | FastAPI · PostgreSQL · PostGIS · Stripe Connect · Next.js | private |
 | **SeatWise** | Constraint-based seating optimisation using hard and soft preferences to find the best feasible arrangement within a fixed budget | Python · FastAPI · Pydantic 2 | private |
 
 ---
@@ -46,19 +46,23 @@ Both are handled as measurement problems rather than prompt instructions. The au
 
 Continuity is a typed contract between chapters rather than a summary document: a character relocating with no travel shown, someone acting on a fact they were never shown learning, or a thread past its resolve-by chapter all fail a gate in code.
 
+## Arista, mountain-guide application
+
+Arista is the main mountain-guide application, owned by `jcasasus5` and built
+together. It covers guide and route discovery, bookings, availability, payments,
+and GPS routes.
+
+For Arista's guide outreach campaign, I also created the outreach application
+and code: paginated scraping and synchronisation of AEGM directory listings,
+on-demand profile enrichment, a SQLite contact state machine, and personalised
+email batches. Sending is safe by default, so a misconfiguration sends nothing
+rather than a live batch.
+
 ## SeatWise, constraint-based seating optimiser
 
 Assigns guests to tables under real constraints (who must sit together, who must be kept apart, table capacities) and returns the best arrangement it can find within a wall-clock budget.
 
 Every arrangement is scored with a breakdown where hard constraints carry penalties orders of magnitude larger than soft ones, so the optimiser never trades a "must not sit together" for a nicety. Bounded hill climbing with random restarts, and a union-find pass that resolves "must sit together" chains into components before placement. The solver is deliberately isolated from the API so it can be tested on its own.
-
-## Other work
-
-### Adventra-Outreach, directory scraping and outreach
-
-A two-person project, built for a real outreach campaign. It syncs mountain-guide listings from the AEGM directory, tracks each contact through a state machine (pending, contacted, replied, follow-up, do-not-contact) in SQLite, and prepares personalised email batches.
-
-My side was the scraping and the contact pipeline: paginated directory sync with on-demand enrichment of individual profiles, the state machine, and making sending safe by default so a misconfiguration sends nothing rather than a live batch.
 
 ---
 
