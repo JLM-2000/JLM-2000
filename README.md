@@ -15,7 +15,7 @@ Most of my repositories are private because they are commercial products in use.
 | **[Lexground](https://github.com/JLM-2000/Lexground)** | Grounded RAG over EU regulatory law with hybrid lexical + vector retrieval, evaluation and regression gates, and reproducible infrastructure | Python · FastAPI · PostgreSQL · pgvector · Next.js · Terraform | public |
 | **iFlySEO** | Production SaaS for scheduled SEO generation and automated WordPress publishing, with background processing, deployment, observability, and reliability-oriented workflows | FastAPI · Celery · Redis · PostgreSQL · PHP · Prometheus · Grafana | private · live |
 | **[Canon-Quill](https://github.com/JLM-2000/Canon-Quill)** | Agentic book-writing workflows grounded in existing writing, with style and continuity validation over structured state | TypeScript · LLM orchestration · MCP · Google Drive API | public |
-| **[Arista](https://github.com/jcasasus5/mountain-guide-app)** | Mountain-guide application owned by `jcasasus5` and built collaboratively, with geospatial search, bookings, availability, payments, and GPS routes | FastAPI · PostgreSQL · PostGIS · Stripe Connect · Next.js | private |
+| **Arista** | Mountain-guide application built collaboratively with `jcasasus5`, with geospatial search, bookings, availability, payments, and GPS routes | FastAPI · PostgreSQL · PostGIS · Stripe Connect · Next.js | private |
 | **SeatWise** | Constraint-based seating optimisation using hard and soft preferences to find the best feasible arrangement within a fixed budget | Python · FastAPI · Pydantic 2 | private |
 
 ---
@@ -48,15 +48,16 @@ Continuity is a typed contract between chapters rather than a summary document: 
 
 ## Arista, mountain-guide application
 
-Arista is the main mountain-guide application, owned by `jcasasus5` and built
-together. It covers guide and route discovery, bookings, availability, payments,
-and GPS routes.
+Arista is a mountain-guide platform, built collaboratively with
+`jcasasus5`. It brings together mountain-guide and route discovery, bookings,
+availability, payments, and GPS routes in one product.
 
-For Arista's guide outreach campaign, I also created the outreach application
-and code: paginated scraping and synchronisation of AEGM directory listings,
-on-demand profile enrichment, a SQLite contact state machine, and personalised
-email batches. Sending is safe by default, so a misconfiguration sends nothing
-rather than a live batch.
+For a real guide outreach campaign around Arista, I built a separate outreach
+application and its code rather than adding campaign logic to the main product.
+It synchronises paginated AEGM directory listings, enriches individual profiles
+on demand, tracks each contact through a SQLite state machine, and prepares
+personalised email batches. Sending is safe by default, so a misconfiguration
+sends nothing rather than a live batch.
 
 ## SeatWise, constraint-based seating optimiser
 
