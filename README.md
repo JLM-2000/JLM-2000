@@ -108,7 +108,6 @@ Exported chapter: [`assets/canon-quill/1-canonquill-chapter.docx`](assets/canon-
 
 <img src="assets/iflyseo/1-iflyseo.png" width="380" alt="iFlySEO 1"> <img src="assets/iflyseo/2-iflyseo.png" width="380" alt="iFlySEO 2"> <img src="assets/iflyseo/3-iflyseo.png" width="380" alt="iFlySEO 3"> <img src="assets/iflyseo/4-iflyseo.png" width="380" alt="iFlySEO 4"> <img src="assets/iflyseo/5-iflyseo.png" width="380" alt="iFlySEO 5"> <img src="assets/iflyseo/6-iflyseo.png" width="380" alt="iFlySEO 6"> <img src="assets/iflyseo/7-iflyseo.png" width="380" alt="iFlySEO 7"> <img src="assets/iflyseo/8-iflyseo.png" width="380" alt="iFlySEO 8">
 
-<video src="assets/iflyseo/iflyseo-demo.mp4" controls width="640"></video>
 
 ### SeatWise — constraint-based seating optimiser
 
