@@ -8,6 +8,15 @@ Most of my repositories are private because they are commercial products in use.
 
 📍 Zaragoza, Spain · [j.luciamarco@gmail.com](mailto:j.luciamarco@gmail.com) · [LinkedIn](https://linkedin.com/in/javier-lucia-marco)
 
+**Currently building:** the iFlySEO v3 universal connector — the full dashboard on any website (WordPress, custom, anything) from a single script tag.
+
+**Highlights, in numbers:**
+
+- **505 backend tests**, 4 Celery queues, 77 Alembic migrations, ~30 containers — iFlySEO runs in production with health-gated deploys and automatic rollback.
+- **158 tests** and an evaluation gate that blocks deploys when retrieval quality drops — Lexground: recall@5 0.906, nDCG@10 0.806, quote fidelity 1.00, groundedness 0.967.
+- **311 tests** and 24 defined agents over a 35-state workflow — Canon-Quill, where style and continuity are measured, not prompted.
+- **19 solver tests** on a custom combinatorial optimizer — SeatWise (union-find, circular distance, stochastic local search).
+
 ---
 
 | Project | What it is | Stack | Status |
@@ -21,6 +30,8 @@ Most of my repositories are private because they are commercial products in use.
 ---
 
 ## Lexground, grounded retrieval over EU law
+
+[![CI](https://github.com/JLM-2000/Lexground/actions/workflows/ci.yml/badge.svg)](https://github.com/JLM-2000/Lexground/actions)
 
 Retrieval over a corpus is the easy half. The half I cared about is knowing whether a change made the answers *worse*, because a degraded RAG system does not throw an exception, it returns a confident wrong answer.
 
@@ -97,6 +108,8 @@ Exported chapter: [`assets/canon-quill/1-canonquill-chapter.docx`](assets/canon-
 
 <img src="assets/iflyseo/1-iflyseo.png" width="380" alt="WordPress plugin"> <img src="assets/iflyseo/2-iflyseo.png" width="380" alt="Universal SDK dashboard"> <img src="assets/iflyseo/3-iflyseo.png" width="380" alt="Webhook-published blog">
 
+<video src="assets/iflyseo/iflyseo-demo.mp4" controls width="640"></video>
+
 ### SeatWise — constraint-based seating optimiser
 
 <img src="assets/seatwise/1-seatwise.png" width="380" alt="Circular seating plan"> <img src="assets/seatwise/2-seatwise.png" width="380" alt="Constraint configuration"> <img src="assets/seatwise/3-seatwise.png" width="380" alt="Ranked plans">
@@ -110,5 +123,3 @@ Exported plan bundle: [`assets/seatwise/4-seatwise-export.zip`](assets/seatwise/
 ## How I work
 
 Tests and CI on everything that ships; a red pipeline blocks the deploy. Migrations reviewed and reversible, production data backed up before destructive work. I measure before I optimise, and I report what the numbers actually say, including when they say the thing I built did not help.
-
-<sub>Contribution activity includes private repositories, so the graph reflects real daily work even though most of the code is not public.</sub>
