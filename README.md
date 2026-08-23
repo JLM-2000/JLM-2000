@@ -75,6 +75,38 @@ Every arrangement is scored with a breakdown where hard constraints carry penalt
 
 ---
 
+## Portfolio media
+
+Screenshots and short demos captured from the running applications. Full sets, including exported artifacts, live in [`assets/`](assets/).
+
+### Lexground — grounded RAG with evaluation gates
+
+<img src="assets/lexground/1.png" width="380" alt="Cited legal answer"> <img src="assets/lexground/2.png" width="380" alt="Retrieval inspector"> <img src="assets/lexground/3.png" width="380" alt="Evaluation dashboard">
+
+<video src="assets/lexground/lexground-demo.mp4" controls width="640"></video>
+
+### Canon-Quill — agentic book writing grounded in the author's voice
+
+<img src="assets/canon-quill/1-canonquill.png" width="380" alt="Studio"> <img src="assets/canon-quill/2-canonquill.png" width="380" alt="Chapter board"> <img src="assets/canon-quill/4-canonquill.png" width="380" alt="Run progress">
+
+<video src="assets/canon-quill/canonquill-demo.mp4" controls width="640"></video>
+
+Exported chapter: [`assets/canon-quill/1-canonquill-chapter.docx`](assets/canon-quill/1-canonquill-chapter.docx)
+
+### iFlySEO — AI content platform for WordPress and beyond
+
+<img src="assets/iflyseo/1-iflyseo.png" width="380" alt="WordPress plugin"> <img src="assets/iflyseo/2-iflyseo.png" width="380" alt="Universal SDK dashboard"> <img src="assets/iflyseo/3-iflyseo.png" width="380" alt="Webhook-published blog">
+
+### SeatWise — constraint-based seating optimiser
+
+<img src="assets/seatwise/1-seatwise.png" width="380" alt="Circular seating plan"> <img src="assets/seatwise/2-seatwise.png" width="380" alt="Constraint configuration"> <img src="assets/seatwise/3-seatwise.png" width="380" alt="Ranked plans">
+
+<video src="assets/seatwise/seatwise-demo.mp4" controls width="640"></video>
+
+Exported plan bundle: [`assets/seatwise/4-seatwise-export.zip`](assets/seatwise/4-seatwise-export.zip)
+
+---
+
 ## How I work
 
 Tests and CI on everything that ships; a red pipeline blocks the deploy. Migrations reviewed and reversible, production data backed up before destructive work. I measure before I optimise, and I report what the numbers actually say, including when they say the thing I built did not help.
